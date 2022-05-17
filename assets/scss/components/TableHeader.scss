@@ -1,0 +1,13 @@
+.header {
+  display: flex;
+
+  .header_item {
+    padding: 20px;
+    border: 1px solid #797474;
+    border-radius: 0;
+  }
+  .header_item:focus , .header_item:active {
+    border-radius: 0;
+    //outline: none;
+  }
+}
