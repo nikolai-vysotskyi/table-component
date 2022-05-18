@@ -20,12 +20,13 @@
       <div class="header_item" v-for="(header,index) in headers" :key="index">
         {{ header.data }}
       </div>
-      <select class="header_item" v-model="dataType">
-        <option v-for="item in dataTypes"> {{ item }}</option>
-      </select>
-      <input v-model="newHeaderText"
-          class="header_item" type="text" :disabled="!dataType"
-             v-on:keyup.enter="saveHeader">
+      <div class="header_item header_item-new">
+        <select v-model="dataType">
+          <option v-for="item in dataTypes"> {{ item }}</option>
+        </select>
+        <input v-model="newHeaderText" type="text" :disabled="!dataType"
+               v-on:keyup.enter="saveHeader">
+      </div>
     </div>
 </template>
 

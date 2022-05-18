@@ -1,13 +1,19 @@
 .header {
-  display: flex;
+  //display: table-row;
+  display: table-header-group;
 
   .header_item {
-    padding: 20px;
+    display: table-cell;
+    padding: 20px 30px;
     border: 1px solid #797474;
     border-radius: 0;
   }
-  .header_item:focus , .header_item:active {
+  .header_item:focus, .header_item:active {
     border-radius: 0;
     //outline: none;
+  }
+
+  .header_item-new{
+    margin-left: 20px;
   }
 }

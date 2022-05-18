@@ -1,0 +1,26 @@
+.matrix {
+  display: table-row-group;
+  //display: table-row;
+
+  .matrix_item {
+    padding: 15px 30px;
+    border: 1px solid #797474;
+    border-radius: 0;
+  }
+  .matrix_item:focus, .matrix_item:active {
+    border-radius: 0;
+    //outline: none;
+  }
+
+  .matrix_item-new{
+    margin-left: 20px;
+  }
+
+  .matrix_rows{
+    display: table-row;
+  }
+
+  .matrix_row{
+    display: table-cell;
+  }
+}
