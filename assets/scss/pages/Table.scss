@@ -1,0 +1,22 @@
+.table {
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+
+  .table_content {
+    display: table;
+    width: 1280px;
+    max-width: 1280px;
+  }
+
+  .matrix_row{
+    display: table-row;
+  }
+
+  .matrix_item {
+    padding: 15px 30px;
+    border: 1px solid #797474;
+    border-radius: 0;
+    display: table-cell;
+  }
+}

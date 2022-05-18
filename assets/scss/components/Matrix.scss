@@ -6,6 +6,7 @@
     padding: 15px 30px;
     border: 1px solid #797474;
     border-radius: 0;
+    display: table-cell;
   }
   .matrix_item:focus, .matrix_item:active {
     border-radius: 0;
@@ -16,11 +17,7 @@
     margin-left: 20px;
   }
 
-  .matrix_rows{
-    display: table-row;
-  }
-
   .matrix_row{
-    display: table-cell;
+    display: table-row;
   }
 }

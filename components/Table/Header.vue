@@ -31,5 +31,5 @@
 </template>
 
 <style lang="scss">
-  @import "/assets/scss/components/TableHeader.scss";
+  @import "/assets/scss/components/Header";
 </style>

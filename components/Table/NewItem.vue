@@ -1,20 +1,19 @@
 <script setup lang="ts">
   const props = defineProps({
-    matrix: Array
+    matrix: Array,
+    cellIndex: Number
   });
   const emit = defineEmits(['matrixItemAdd']);
-
-  // const newMatrixItem = useState('newMatrixItem', () => '');
   const newMatrixItem = ref('');
 
-  const saveMatrixItem = (e) => {
-    emit('matrixItemAdd', {data: e.target.value})
+  const saveMatrixItem = (e, cellIndex) => {
+    emit('matrixItemAdd', {data: e.target.value, row: cellIndex})
     newMatrixItem.value = null;
   }
 </script>
 
 <template>
   <div>
-    <input type="text" v-model="newMatrixItem" v-on:keyup.enter="saveMatrixItem">
+    <input type="text" v-model="newMatrixItem" v-on:keyup.enter="saveMatrixItem($event, cellIndex)">
   </div>
 </template>
