@@ -15,26 +15,26 @@ const saveMatrixItem = (item) => {
 </script>
 
 <template>
-  <div class="matrix" v-for="(row, index) in matrix" :key="index">
+  <div class="matrix_rows" v-for="(row, index) in matrix" :key="index">
     <div class="matrix_row">
       <div class="matrix_item" v-for="(cell, cellIndex) in row.cells" :key="cellIndex">
         {{ cell }}
       </div>
       <div class="matrix_item" v-if="row.cells.length < headers.length">
-        <TableNewItem @matrixItemAdd="saveMatrixItem" :cellIndex="index"/>
+        <TableNewItem @matrixItemAdd="saveMatrixItem" :cellIndex="index" :headers="headers" :matrix="matrix"/>
       </div>
     </div>
 
-    <div class="matrix_row" v-if="row.children">
-      <div v-for="(child, childIndex) in row.children" :key="childIndex">
-        <div class="matrix_item" v-for="(cell, cellIndex) in child.cells" :key="cellIndex">
-          {{ cell }}
-        </div>
-        <div class="matrix_item">
-          <TableNewItem @matrixItemAdd="saveMatrixItem"/>
-        </div>
-      </div>
-    </div>
+<!--    <div class="matrix_row" v-if="row.children">-->
+<!--      <div v-for="(child, childIndex) in row.children" :key="childIndex">-->
+<!--        <div class="matrix_item" v-for="(cell, cellIndex) in child.cells" :key="cellIndex"  :matrix="matrix">-->
+<!--          {{ cell }}-->
+<!--        </div>-->
+<!--        <div class="matrix_item">-->
+<!--          <TableNewItem @matrixItemAdd="saveMatrixItem"  :cellIndex="index" :headers="headers"/>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
   </div>
 </template>
 

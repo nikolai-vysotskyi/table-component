@@ -1,0 +1,19 @@
+.footer {
+  //display: table-row;
+  display: table-header-group;
+
+  .footer_item {
+    display: table-cell;
+    padding: 20px 30px;
+    border: 1px solid #797474;
+    border-radius: 0;
+  }
+  .footer_item:focus, .footer_item:active {
+    border-radius: 0;
+    //outline: none;
+  }
+
+  .footer_item-new{
+    margin-left: 20px;
+  }
+}
