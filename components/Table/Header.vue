@@ -1,8 +1,10 @@
 <script setup lang="ts">
-defineProps({
-	headers: Array,
-	matrixNewColumn: Boolean,
-});
+interface Props {
+  headers: Array<object>,
+  matrixNewColumn: boolean,
+}
+defineProps<Props>();
+
 const emit = defineEmits(["headerItemAdd"]);
 
 const dataType = reactive({value: ""});
@@ -25,13 +27,6 @@ const saveHeader = (e) => {
     >
       {{ header.data }}
     </div>
-    <!--    <div-->
-    <!--      v-if="!newHeaderItem"-->
-    <!--      class="header_item"-->
-    <!--      @click="newHeaderItem = true"-->
-    <!--    >-->
-    <!--      Add column-->
-    <!--    </div>-->
     <div
       v-if="matrixNewColumn"
       class="header_item header_item-new"

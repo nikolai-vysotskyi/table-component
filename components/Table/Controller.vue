@@ -1,8 +1,10 @@
 <script setup lang="ts">
-defineProps({
-	headerLength: Number,
-	matrixLength: Number
-});
+interface Props {
+  headerLength: number,
+  matrixLength: number,
+}
+defineProps<Props>();
+
 const emit = defineEmits(["matrixAddRow", "matrixAddColumn"]);
 
 const newRow = (e) => {

@@ -1,11 +1,16 @@
 <script setup lang="ts">
-defineProps({
-	type: String,
-	row: Object,
-	cellIndex: Number,
-	rowIndex: Number,
-	valueType: String,
-});
+import {min,max,count,value} from "~/functions/aggrigation";
+// import {dataTypes} from "~/functions/aggrigation";
+
+interface Props {
+  row: object,
+  cellIndex: number,
+  rowIndex: number,
+  type: string,
+  valueType: string,
+}
+defineProps<Props>();
+
 const emit = defineEmits(["matrixItemEdit"]);
 
 const itemEdit = (item) => {
@@ -13,34 +18,8 @@ const itemEdit = (item) => {
 };
 
 const dataType = reactive({value: []});
-const dataTypes = ["Max", "Min", "Count", "Value"];
+const dataTypes = ["Value", "Max", "Min", "Count"];
 
-const max = (arr, index) => {
-	return arr.reduce(
-		(max, p) =>
-			parseInt(p?.cells?.[index]?.value) > max
-				? parseInt(p?.cells?.[index]?.value)
-				: max,
-		parseInt(arr?.[0]?.cells?.[index]?.value) || -Infinity
-	) || "";
-};
-
-const min = (arr, index) => {
-	return arr.reduce(
-		(min, p) =>
-			parseInt(p?.cells?.[index]?.value) < min
-				? parseInt(p?.cells?.[index]?.value)
-				: min,
-		parseInt(arr?.[0].cells?.[index]?.value) || Infinity
-	) || "";
-};
-
-const count = (arr, index) => {
-	return arr.reduce(function (sum, elem) {
-		if (parseInt(elem?.cells?.[index]?.value)) return sum + parseInt(elem?.cells?.[index]?.value);
-		return sum;
-	}, 0);
-};
 </script>
 
 <template>
@@ -55,21 +34,11 @@ const count = (arr, index) => {
         </option>
       </select>
 
-      <div v-if="dataType.value[cellIndex] === 'Count'">
-        {{ count(row.child, cellIndex) }}
-      </div>
-      <div v-if="dataType.value[cellIndex] === 'Min'">
-        {{ min(row.child, cellIndex) }}
-      </div>
-      <div v-if="dataType.value[cellIndex] === 'Max'">
-        {{ max(row.child, cellIndex) }}
-      </div>
+      {{ value(row, dataType.value[cellIndex], cellIndex) }}
+
       <div v-if="dataType.value[cellIndex] === 'Value'">
-        <div v-if="row.cells[cellIndex] && !row.cells?.[cellIndex]?.editing">
-          {{ row.cells?.[cellIndex]?.value }}
-        </div>
         <TableNewItem
-          v-else-if="!row.cells[cellIndex] || row.cells?.[cellIndex]?.editing"
+          v-if="!row.cells[cellIndex] || row.cells?.[cellIndex]?.editing"
           :row-index="rowIndex"
           :cell-index="cellIndex"
           :value="row.cells[cellIndex]?.value"
@@ -78,6 +47,20 @@ const count = (arr, index) => {
           @matrixItemEdit="itemEdit"
         />
       </div>
+    </div>
+    <div v-if="type === 'String'">
+      <div v-if="row.cells[cellIndex] && !row.cells?.[cellIndex]?.editing">
+        {{ row.cells?.[cellIndex]?.value }}
+      </div>
+      <TableNewItem
+        v-else-if="!row.cells[cellIndex] || row.cells?.[cellIndex]?.editing"
+        :row-index="rowIndex"
+        :cell-index="cellIndex"
+        :value="row.cells[cellIndex]?.value"
+        :type="valueType"
+        :child-index="NaN"
+        @matrixItemEdit="itemEdit"
+      />
     </div>
   </div>
 </template>

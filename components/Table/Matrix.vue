@@ -1,16 +1,18 @@
 <script setup lang="ts">
-defineProps({
-	matrix: Array,
-	headers: Array,
-});
-const emit = defineEmits(["matrixItemAdd", "matrixItemEdit", "matrixAddChild", "matrixHiddenChilds", "cellEditing"]);
+interface Props {
+  matrix: Array<object>,
+  headers: Array<object>,
+}
+defineProps<Props>();
+
+const emit = defineEmits(["matrixItemEdit", "matrixAddChild", "matrixHiddenChilds", "matrixEditingCell"]);
 
 const itemEdit = (item) => {
 	emit("matrixItemEdit", item);
 };
 
 const cellEdit = (cell: number, row: number, data: boolean, child?: number) => {
-	emit("cellEditing", {cell, row, data, child});
+	emit("matrixEditingCell", {cell, row, data, child});
 };
 
 const childAdd = (row: number) => {
@@ -41,9 +43,8 @@ const childHidden = (row: number) => {
           :cell-index="cellIndex"
           :row-index="rowIndex"
           :value-type="cell.type"
-          @matrixItemAdd="saveMatrixItem"
+          @matrixItemEdit="item => emit('matrixItemEdit', item)"
         />
-        <!--          {{ row.cells?.[cellIndex]?.value }}-->
       </div>
       <button
         v-if="row.child.length"

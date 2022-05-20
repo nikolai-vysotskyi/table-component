@@ -24,19 +24,19 @@ const matrixAddRow = () => {
 	});
 };
 
-const matrixAddColumn = () => {
-	matrixNewColumn.value = true;
-};
-
 const matrixAddChild = (val) => {
 	matrix.value[val.row].child.push({cells: []});
+};
+
+const matrixAddColumn = () => {
+	matrixNewColumn.value = true;
 };
 
 const matrixHiddenChilds = (val) => {
 	matrix.value[val.row].childHidden = !matrix.value[val.row].childHidden;
 };
 
-const cellEditing = (val) => {
+const matrixEditingCell = (val) => {
 	if(val.child >= 0) {
 		matrix.value[val.row].child[val.child].cells[val.cell].editing = val.data;
 	} else {
@@ -73,15 +73,16 @@ const matrixItemEdit = (val) => {
         :matrix="matrix"
         :headers="headers"
         @matrixItemEdit="matrixItemEdit"
-        @cellEditing="cellEditing"
+        @matrixEditingCell="matrixEditingCell"
         @matrixAddChild="matrixAddChild"
         @matrixHiddenChilds="matrixHiddenChilds"
       />
 
-      <!--      <TableFooter-->
-      <!--        :headers="headers"-->
-      <!--        :matrix="matrix"-->
-      <!--      />-->
+      <TableFooter
+        v-if="matrix.length > 0"
+        :headers="headers"
+        :matrix="matrix"
+      />
     </div>
   </div>
 </template>

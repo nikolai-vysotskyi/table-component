@@ -14,12 +14,12 @@ interface MatrixItem {
   child: number;
 }
 
-const emit = defineEmits(["matrixItemAdd"]);
+const emit = defineEmits(["matrixItemEdit"]);
 const props = defineProps<Props>();
 
 const newMatrixItem = ref(props.value);
 
-const saveMatrixItem = (e, row: number, cell: number) => {
+const itemEdit = (e, row: number, cell: number, child: number) => {
 	let item :MatrixItem = {
 		data: {
 			value: e.target.value,
@@ -27,10 +27,10 @@ const saveMatrixItem = (e, row: number, cell: number) => {
 		},
 		row: row,
 		cell: cell,
-		child: props.childIndex,
+		child: child,
 	};
 
-	emit("matrixItemAdd", item);
+	emit("matrixItemEdit", item);
 	newMatrixItem.value = null;
 };
 </script>
@@ -39,8 +39,8 @@ const saveMatrixItem = (e, row: number, cell: number) => {
   <div>
     <input
       v-model="newMatrixItem"
-      :type="type === 'String'? 'text' : 'number'"
-      @keyup.enter="saveMatrixItem($event, rowIndex, cellIndex)"
+      :type="type === 'String' ? 'text' : 'number'"
+      @keyup.enter="itemEdit($event, rowIndex, cellIndex, childIndex)"
     >
   </div>
 </template>
