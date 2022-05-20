@@ -1,19 +1,18 @@
 <script setup lang="ts">
 defineProps({
-	headers: Array
+	headers: Array,
+	matrixNewColumn: Boolean,
 });
 const emit = defineEmits(["headerItemAdd"]);
 
 const dataType = reactive({value: ""});
 const newHeaderText = ref("");
 const dataTypes = ["String", "Number"];
-const newHeaderItem = ref(false);
 
 const saveHeader = (e) => {
 	emit("headerItemAdd", {data: e.target.value, type: dataType.value});
 	dataType.value = null;
 	newHeaderText.value = null;
-	newHeaderItem.value = false;
 };
 </script>
 
@@ -26,15 +25,15 @@ const saveHeader = (e) => {
     >
       {{ header.data }}
     </div>
+    <!--    <div-->
+    <!--      v-if="!newHeaderItem"-->
+    <!--      class="header_item"-->
+    <!--      @click="newHeaderItem = true"-->
+    <!--    >-->
+    <!--      Add column-->
+    <!--    </div>-->
     <div
-      v-if="!newHeaderItem"
-      class="header_item"
-      @click="newHeaderItem = true"
-    >
-      +
-    </div>
-    <div
-      v-else
+      v-if="matrixNewColumn"
       class="header_item header_item-new"
     >
       <select v-model="dataType.value">

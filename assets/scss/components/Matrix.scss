@@ -20,4 +20,13 @@
   .matrix_row{
     display: table-row;
   }
+
+  .matrix_rows-child{
+    display: contents;
+  }
+  .matrix_child-hidden{
+    display: block;
+    visibility: hidden;
+    height: 0;
+  }
 }

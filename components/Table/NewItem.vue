@@ -1,26 +1,46 @@
 <script setup lang="ts">
-defineProps({
-	headers: Array,
-	matrix: Array,
-	cellIndex: Number
-});
-const emit = defineEmits(["matrixItemAdd"]);
-const newMatrixItem = ref("");
+interface Props {
+  rowIndex: number,
+  cellIndex: number,
+  childIndex: number,
+  value?: string,
+  type: string,
+}
 
-const saveMatrixItem = (e, cellIndex) => {
-	emit("matrixItemAdd", {data: e.target.value, row: cellIndex});
+interface MatrixItem {
+  data: object;
+  row: number;
+  cell: number;
+  child: number;
+}
+
+const emit = defineEmits(["matrixItemAdd"]);
+const props = defineProps<Props>();
+
+const newMatrixItem = ref(props.value);
+
+const saveMatrixItem = (e, row: number, cell: number) => {
+	let item :MatrixItem = {
+		data: {
+			value: e.target.value,
+			editing: false,
+		},
+		row: row,
+		cell: cell,
+		child: props.childIndex,
+	};
+
+	emit("matrixItemAdd", item);
 	newMatrixItem.value = null;
 };
-
-// console.log(props.matrix[props.cellIndex].cells.length);
 </script>
 
 <template>
   <div>
     <input
       v-model="newMatrixItem"
-      :type="headers[matrix[cellIndex].cells.length].type === 'String'? 'text' : 'number'"
-      @keyup.enter="saveMatrixItem($event, cellIndex)"
+      :type="type === 'String'? 'text' : 'number'"
+      @keyup.enter="saveMatrixItem($event, rowIndex, cellIndex)"
     >
   </div>
 </template>

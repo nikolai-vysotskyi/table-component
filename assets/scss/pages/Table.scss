@@ -1,12 +1,12 @@
 .table {
   display: flex;
+  flex-wrap: wrap;
   justify-content: center;
   width: 100vw;
 
   .table_content {
     display: table;
     max-width: 1280px;
-    border: 1px solid #797474;
   }
 
   .matrix_rows_add{
