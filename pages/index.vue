@@ -1,4 +1,3 @@
 <template>
-  <Table/>
-  <Table/>
+  <Table />
 </template>

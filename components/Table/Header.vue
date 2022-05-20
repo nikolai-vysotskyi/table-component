@@ -1,40 +1,58 @@
 <script setup lang="ts">
-  const props = defineProps({
-    headers: Array
-  });
-  const emit = defineEmits(['headerItemAdd']);
+defineProps({
+	headers: Array
+});
+const emit = defineEmits(["headerItemAdd"]);
 
-  const dataType = reactive({value: ''});
-  const newHeaderText = useState('newHeaderText', () => '');
-  const dataTypes = ['String','Int','Max','Min','Count'];
-  const newHeaderItem = ref(false);
+const dataType = reactive({value: ""});
+const newHeaderText = ref("");
+const dataTypes = ["String", "Number"];
+const newHeaderItem = ref(false);
 
-  const saveHeader = (e) => {
-    emit('headerItemAdd', { data: e.target.value, type: dataType.value })
-    dataType.value = null;
-    newHeaderText.value = null;
-    newHeaderItem.value = false;
-  }
+const saveHeader = (e) => {
+	emit("headerItemAdd", {data: e.target.value, type: dataType.value});
+	dataType.value = null;
+	newHeaderText.value = null;
+	newHeaderItem.value = false;
+};
 </script>
 
 <template>
-    <div class="header">
-      <div class="header_item" v-for="(header,index) in headers" :key="index">
-        {{ header.data }}
-      </div>
-      <div class="header_item"
-             v-if="!newHeaderItem"
-             v-on:click="newHeaderItem = true">
-          +
-      </div>
-      <div v-else class="header_item header_item-new">
-        <select v-model="dataType.value">
-          <option v-for="item in dataTypes"> {{ item }}</option>
-        </select>
-        <input v-model="newHeaderText" type="text" :disabled="!dataType.value"
-               v-on:keyup.enter="saveHeader">
-      </div>
+  <div class="header">
+    <div
+      v-for="(header, index) in headers"
+      :key="index"
+      class="header_item"
+    >
+      {{ header.data }}
     </div>
+    <div
+      v-if="!newHeaderItem"
+      class="header_item"
+      @click="newHeaderItem = true"
+    >
+      +
+    </div>
+    <div
+      v-else
+      class="header_item header_item-new"
+    >
+      <select v-model="dataType.value">
+        <option
+          v-for="type in dataTypes"
+          :key="'header_'+type"
+        >
+          {{ type }}
+        </option>
+      </select>
+      <input
+        v-model="newHeaderText"
+        type="text"
+        :disabled="!dataType.value"
+        @keyup.enter="saveHeader"
+      >
+    </div>
+  </div>
 </template>
 
 <style lang="scss">
