@@ -90,3 +90,33 @@
     }
   }
 }
+
+.matrix_control {
+  display: flex;
+  align-items: center;
+  height: 39px;
+
+  .matrix_control-button{
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+    border-radius: 50%;
+  }
+  .matrix_control-button:hover{
+      background: #f3f3f3;
+  }
+
+  .matrix_control-add{
+    margin-left: 2.5rem;
+  }
+  .matrix_control-hidden{
+    margin-left: 1rem;
+
+    transform: rotate(90deg);
+  }
+  .matrix_control-hidden-up{
+    transform: rotate(-90deg);
+  }
+}

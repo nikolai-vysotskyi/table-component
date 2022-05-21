@@ -1,3 +1,7 @@
 .value {
   display: flex;
+  min-width: 150px;
+  .value_select{
+    margin-right: 0.5rem;
+  }
 }

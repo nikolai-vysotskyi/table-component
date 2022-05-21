@@ -36,11 +36,16 @@ const itemEdit = (e, row: number, cell: number, child: number) => {
 </script>
 
 <template>
-  <div>
+  <div class="newitem_wrapper">
     <input
       v-model="newMatrixItem"
+      class="newitem_input"
       :type="type === 'String' ? 'text' : 'number'"
       @keyup.enter="itemEdit($event, rowIndex, cellIndex, childIndex)"
     >
   </div>
 </template>
+
+<style lang="scss">
+@import "/assets/scss/components/NewItem";
+</style>

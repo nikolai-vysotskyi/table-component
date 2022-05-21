@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import PlusIcon from "~/assets/svg/plus.svg";
+import ArrowIcon from "~/assets/svg/arrow.svg";
+
 
 interface Props {
   matrix: Array<object>,
@@ -48,21 +50,22 @@ const childHidden = (row: number) => emit("matrixHiddenChilds", {row});
         v-if="matrixNewColumn"
         class="matrix_item"
       />
-      <div>
-        <button
-          v-if="row.child.length"
-          @click="childHidden(rowIndex)"
-        >
-          <span v-if="row.childHidden">развернуть</span>
-          <span v-else>свернуть</span>
-        </button>
-
-        <button
+      <div class="matrix_control">
+        <div
           v-if="headers.length"
+          class="matrix_control-button matrix_control-add"
           @click="childAdd(rowIndex)"
         >
-          Create child
-        </button>
+          <PlusIcon />
+        </div>
+        <div
+          v-if="row.child.length"
+          class="matrix_control-button matrix_control-hidden"
+          :class="{'matrix_control-hidden-up': row.childHidden}"
+          @click="childHidden(rowIndex)"
+        >
+          <ArrowIcon />
+        </div>
       </div>
     </div>
 

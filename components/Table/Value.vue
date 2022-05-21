@@ -23,6 +23,7 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
     <select
       v-if="type === 'Number'"
       v-model="dataType.value[cellIndex]"
+      class="value_select"
     >
       <option
         v-for="type in dataTypes"
@@ -45,7 +46,10 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
       :child-index="NaN"
       @matrixEditCell="itemEdit"
     />
-    <div v-else>
+    <div
+      v-else
+      class="value_value"
+    >
       {{ value(row, dataType.value[cellIndex], type, rowIndex, cellIndex, itemEdit) }}
     </div>
   </div>

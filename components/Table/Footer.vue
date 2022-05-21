@@ -32,14 +32,16 @@ const dataTypes = ["Max", "Min", "Count"];
           </option>
         </select>
 
-        <div v-if="dataType.value[index] === 'Count'">
-          {{ count(matrix, index) }}
-        </div>
-        <div v-if="dataType.value[index] === 'Min'">
-          {{ min(matrix, index) }}
-        </div>
-        <div v-if="dataType.value[index] === 'Max'">
-          {{ max(matrix, index) }}
+        <div class="footer_item-value-value">
+          <div v-if="dataType.value[index] === 'Count'">
+            {{ count(matrix, index) }}
+          </div>
+          <div v-if="dataType.value[index] === 'Min'">
+            {{ min(matrix, index) }}
+          </div>
+          <div v-if="dataType.value[index] === 'Max'">
+            {{ max(matrix, index) }}
+          </div>
         </div>
       </div>
     </div>
