@@ -5,14 +5,14 @@ interface Props {
 }
 defineProps<Props>();
 
-const emit = defineEmits(["headerItemAdd"]);
+const emit = defineEmits(["headerAddItem"]);
 
 const dataType = reactive({value: ""});
 const newHeaderText = ref("");
 const dataTypes = ["String", "Number"];
 
 const saveHeader = (e) => {
-	emit("headerItemAdd", {data: e.target.value, type: dataType.value});
+	emit("headerAddItem", {data: e.target.value, type: dataType.value});
 	dataType.value = null;
 	newHeaderText.value = null;
 };

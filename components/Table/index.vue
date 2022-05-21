@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// toRaw(matrix.value)
-
 const headers = reactive([]);
 const matrix = ref([
 	{
@@ -11,7 +9,7 @@ const matrix = ref([
 ]);
 const matrixNewColumn = ref(false);
 
-const headerItemAdd = (val) => {
+const headerAddItem = (val) => {
 	headers.push(val);
 	matrixNewColumn.value = false;
 };
@@ -24,34 +22,19 @@ const matrixAddRow = () => {
 	});
 };
 
-const matrixAddChild = (val) => {
-	matrix.value[val.row].child.push({cells: []});
-};
+const matrixAddChild = (val) => matrix.value[val.row].child.push({cells: []});
+const matrixAddColumn = () => matrixNewColumn.value = true;
+const matrixHiddenChilds = (val) => matrix.value[val.row].childHidden = !matrix.value[val.row].childHidden;
 
-const matrixAddColumn = () => {
-	matrixNewColumn.value = true;
-};
-
-const matrixHiddenChilds = (val) => {
-	matrix.value[val.row].childHidden = !matrix.value[val.row].childHidden;
+const matrixEditCell = (val) => {
+	if(val.child >= 0) matrix.value[val.row].child[val.child].cells[val.cell] = val.data;
+	else matrix.value[val.row].cells[val.cell] = val.data;
 };
 
 const matrixEditingCell = (val) => {
-	if(val.child >= 0) {
-		matrix.value[val.row].child[val.child].cells[val.cell].editing = val.data;
-	} else {
-		matrix.value[val.row].cells[val.cell].editing = val.data;
-	}
+	if(val.child >= 0) matrix.value[val.row].child[val.child].cells[val.cell].editing = val.data;
+	else matrix.value[val.row].cells[val.cell].editing = val.data;
 };
-
-const matrixItemEdit = (val) => {
-	if(val.child >= 0) {
-		matrix.value[val.row].child[val.child].cells[val.cell] = val.data;
-	} else {
-		matrix.value[val.row].cells[val.cell] = val.data;
-	}
-};
-
 </script>
 
 <template>
@@ -65,14 +48,15 @@ const matrixItemEdit = (val) => {
       <TableHeader
         :headers="headers"
         :matrix-new-column="matrixNewColumn"
-        @headerItemAdd="headerItemAdd"
+        @headerAddItem="headerAddItem"
       />
 
       <TableMatrix
         v-if="matrix.length > 0"
         :matrix="matrix"
         :headers="headers"
-        @matrixItemEdit="matrixItemEdit"
+        :matrix-new-column="matrixNewColumn"
+        @matrixEditCell="matrixEditCell"
         @matrixEditingCell="matrixEditingCell"
         @matrixAddChild="matrixAddChild"
         @matrixHiddenChilds="matrixHiddenChilds"
@@ -81,6 +65,7 @@ const matrixItemEdit = (val) => {
       <TableFooter
         v-if="matrix.length > 0"
         :headers="headers"
+        :matrix-new-column="matrixNewColumn"
         :matrix="matrix"
       />
     </div>
@@ -88,5 +73,5 @@ const matrixItemEdit = (val) => {
 </template>
 
 <style lang="scss">
-@import "/assets/scss/pages/Table";
+  @import "/assets/scss/components";
 </style>

@@ -1,41 +1,39 @@
 <script setup lang="ts">
+import PlusIcon from "~/assets/svg/plus.svg";
+
 interface Props {
   matrix: Array<object>,
   headers: Array<object>,
+  matrixNewColumn: boolean,
 }
+
 defineProps<Props>();
 
-const emit = defineEmits(["matrixItemEdit", "matrixAddChild", "matrixHiddenChilds", "matrixEditingCell"]);
+const emit = defineEmits(["matrixEditCell", "matrixAddChild", "matrixHiddenChilds", "matrixEditingCell"]);
 
-const itemEdit = (item) => {
-	emit("matrixItemEdit", item);
-};
-
-const cellEdit = (cell: number, row: number, data: boolean, child?: number) => {
-	emit("matrixEditingCell", {cell, row, data, child});
-};
-
-const childAdd = (row: number) => {
-	emit("matrixAddChild", {row});
-};
-
-const childHidden = (row: number) => {
-	emit("matrixHiddenChilds", {row});
-};
+const cellEdit = (item) => emit("matrixEditCell", item);
+const cellEditing = (cell: number, row: number, data: boolean, child?: number) => emit("matrixEditingCell", {
+	cell,
+	row,
+	data,
+	child
+});
+const childAdd = (row: number) => emit("matrixAddChild", {row});
+const childHidden = (row: number) => emit("matrixHiddenChilds", {row});
 </script>
 
 <template>
   <div
     v-for="(row, rowIndex) in matrix"
     :key="rowIndex"
-    class="matrix_rows"
+    class="matrix_rows-parent matrix_rows"
   >
-    <div class="matrix_row">
+    <div class="matrix_row matrix_elem">
       <div
         v-for="(cell, cellIndex) in headers"
         :key="cellIndex"
         class="matrix_item"
-        @dblclick="cellEdit(cellIndex, rowIndex, true)"
+        @dblclick="cellEditing(cellIndex, rowIndex, true)"
       >
         <TableValue
           :type="headers[cellIndex].type"
@@ -43,23 +41,29 @@ const childHidden = (row: number) => {
           :cell-index="cellIndex"
           :row-index="rowIndex"
           :value-type="cell.type"
-          @matrixItemEdit="item => emit('matrixItemEdit', item)"
+          @matrixEditCell="cellEdit"
         />
       </div>
-      <button
-        v-if="row.child.length"
-        @click="childHidden(rowIndex)"
-      >
-        <span v-if="row.childHidden">развернуть</span>
-        <span v-else>свернуть</span>
-      </button>
+      <div
+        v-if="matrixNewColumn"
+        class="matrix_item"
+      />
+      <div>
+        <button
+          v-if="row.child.length"
+          @click="childHidden(rowIndex)"
+        >
+          <span v-if="row.childHidden">развернуть</span>
+          <span v-else>свернуть</span>
+        </button>
 
-      <button
-        v-if="headers.length"
-        @click="childAdd(rowIndex)"
-      >
-        Create child
-      </button>
+        <button
+          v-if="headers.length"
+          @click="childAdd(rowIndex)"
+        >
+          Create child
+        </button>
+      </div>
     </div>
 
     <div
@@ -76,7 +80,7 @@ const childHidden = (row: number) => {
           v-for="(cell, cellIndex) in headers"
           :key="cellIndex"
           class="matrix_item"
-          @dblclick="cellEdit(cellIndex, rowIndex, true, childIndex)"
+          @dblclick="cellEditing(cellIndex, rowIndex, true, childIndex)"
         >
           <div v-if="child.cells[cellIndex] && !child.cells?.[cellIndex]?.editing">
             {{ child.cells?.[cellIndex]?.value }}
@@ -88,14 +92,18 @@ const childHidden = (row: number) => {
             :value="child.cells[cellIndex]?.value"
             :type="cell.type"
             :child-index="childIndex"
-            @matrixItemEdit="itemEdit"
+            @matrixEditCell="cellEdit"
           />
         </div>
+        <div
+          v-if="matrixNewColumn"
+          class="matrix_item"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <style lang="scss">
-@import "/assets/scss/components/Matrix";
+  @import "/assets/scss/components/Matrix";
 </style>

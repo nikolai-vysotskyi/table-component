@@ -1,18 +1,13 @@
 <script setup lang="ts">
 interface Props {
   headerLength: number,
-  matrixLength: number,
 }
 defineProps<Props>();
 
 const emit = defineEmits(["matrixAddRow", "matrixAddColumn"]);
 
-const newRow = (e) => {
-	emit("matrixAddRow");
-};
-const newColumn = (e) => {
-	emit("matrixAddColumn");
-};
+const newRow = () => emit("matrixAddRow");
+const newColumn = () => emit("matrixAddColumn");
 </script>
 
 <template>
@@ -42,5 +37,5 @@ const newColumn = (e) => {
 </template>
 
 <style lang="scss">
-@import "/assets/scss/components/Controller";
+  @import "/assets/scss/components/Controller";
 </style>

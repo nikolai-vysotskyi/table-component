@@ -2,7 +2,10 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  width: 100vw;
+  width: 100%;
+  border: none;
+  margin-bottom: 20px;
+  border-collapse: separate;
 
   .table_content {
     display: table;
@@ -13,14 +16,4 @@
     display: block;
   }
 
-  .matrix_row{
-    display: table-row;
-  }
-
-  .matrix_item {
-    padding: 15px 30px;
-    border: 1px solid #797474;
-    border-radius: 0;
-    display: table-cell;
-  }
 }

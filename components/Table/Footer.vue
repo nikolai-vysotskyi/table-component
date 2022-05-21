@@ -4,6 +4,7 @@ import {min,max,count} from "~/functions/aggrigation";
 interface Props {
   matrix: Array<object>,
   headers: Array<object>,
+  matrixNewColumn: boolean,
 }
 defineProps<Props>();
 
@@ -18,7 +19,10 @@ const dataTypes = ["Max", "Min", "Count"];
       :key="index"
       class="footer_item"
     >
-      <div v-if="headers[index].type === 'Number'">
+      <div
+        v-if="headers[index].type === 'Number'"
+        class="footer_item-value"
+      >
         <select v-model="dataType.value[index]">
           <option
             v-for="type in dataTypes"
@@ -39,9 +43,13 @@ const dataTypes = ["Max", "Min", "Count"];
         </div>
       </div>
     </div>
+    <div
+      v-if="matrixNewColumn"
+      class="footer_item"
+    />
   </div>
 </template>
 
 <style lang="scss">
-@import "/assets/scss/components/Footer";
+  @import "/assets/scss/components/Footer";
 </style>

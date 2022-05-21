@@ -14,7 +14,7 @@ interface MatrixItem {
   child: number;
 }
 
-const emit = defineEmits(["matrixItemEdit"]);
+const emit = defineEmits(["matrixEditCell"]);
 const props = defineProps<Props>();
 
 const newMatrixItem = ref(props.value);
@@ -30,7 +30,7 @@ const itemEdit = (e, row: number, cell: number, child: number) => {
 		child: child,
 	};
 
-	emit("matrixItemEdit", item);
+	emit("matrixEditCell", item);
 	newMatrixItem.value = null;
 };
 </script>

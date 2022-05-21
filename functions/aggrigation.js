@@ -32,36 +32,52 @@ export const count = (arr, index) => {
 };
 
 
-export const value = (row, type, cellIndex) => {
-	const dataTypes = [
-		{
-			type: "Value",
-			func: function (row, cellIndex){
-				if(row.cells[cellIndex] && !row.cells?.[cellIndex]?.editing) {
-					return row.cells?.[cellIndex]?.value;
-				}
-			}
-		},
-		{
-			type: "Max",
-			func: function (row, cellIndex) {
-				return max(row.child, cellIndex);
-			}
-		},
-		{
-			type: "Min",
-			func: function (row, cellIndex) {
-				return min(row.child, cellIndex);
-			}
-		},
-		{
-			type: "Count",
-			func: function (row, cellIndex) {
-				return count(row.child, cellIndex);
+const dataTypes = [
+	{
+		type: "Value",
+		func: function (row, cellIndex){
+			if(row.cells[cellIndex] && !row.cells?.[cellIndex]?.editing) {
+				return row.cells?.[cellIndex]?.value;
 			}
 		}
-	];
+	},
+	{
+		type: "Max",
+		func: function (row, cellIndex) {
+			return max(row.child, cellIndex);
+		}
+	},
+	{
+		type: "Min",
+		func: function (row, cellIndex) {
+			return min(row.child, cellIndex);
+		}
+	},
+	{
+		type: "Count",
+		func: function (row, cellIndex) {
+			return count(row.child, cellIndex);
+		}
+	}
+];
 
+
+const updateValue = (type, data, rowIndex, cellIndex, itemEdit) => {
+	if(type ===  "Max" || type ===  "Min" || type ===  "Count") {
+		let item = {
+			data: {
+				value: data.toString(),
+				editing: false,
+			},
+			row: rowIndex,
+			cell: cellIndex,
+			child: NaN,
+		};
+		itemEdit(item);
+	}
+};
+
+export const value = (row, type, cellType, rowIndex, cellIndex, itemEdit) => {
 	let data;
 
 	dataTypes.forEach((dataType) => {
@@ -70,5 +86,16 @@ export const value = (row, type, cellIndex) => {
 		}
 	});
 
-	return data;
+	if(
+		(data &&
+			(!row.cells[cellIndex]?.value
+				|| data.toString() !== row.cells[cellIndex]?.value.toString()
+			)
+		)
+		|| cellType === "String"
+	){
+		updateValue(type, data, rowIndex, cellIndex, itemEdit);
+	}
+	return data || row.cells[cellIndex]?.value;
 };
+
