@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import {value} from "~/functions/aggrigation";
 interface Props {
-  row: object,
+  row: {
+    cells: Array<{
+      value: string,
+      editing: boolean,
+    }>,
+
+  },
   cellIndex: number,
   rowIndex: number,
   type: string,
@@ -27,7 +33,7 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
     >
       <option
         v-for="type in dataTypes"
-        :key="'footer_'+type"
+        :key="type"
       >
         {{ type }}
       </option>

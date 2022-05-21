@@ -1,13 +1,34 @@
 <script setup lang="ts">
-const headers = reactive([]);
-const matrix = ref([
+interface Props {
+  matrix?: Array<{
+    cells: Array<{
+      value: string,
+      editing: boolean,
+    }>,
+    child: Array<{
+      cells: Array<{
+        value: string,
+        editing: boolean,
+      }>
+    }>,
+    childHidden: boolean,
+  }>,
+  headers?: Array<{
+    data: string,
+    type: string,
+  }>,
+}
+const prop = defineProps<Props>();
+
+const headers = reactive(prop.headers || []);
+const matrix = ref(prop.matrix || [
 	{
 		cells: [],
 		child: [],
 		childHidden: false,
 	}
 ]);
-const matrixNewColumn = ref(false);
+const matrixNewColumn = ref<boolean>(false);
 
 const headerAddItem = (val) => {
 	headers.push(val);
@@ -24,7 +45,7 @@ const matrixAddRow = () => {
 
 const matrixAddChild = (val) => matrix.value[val.row].child.push({cells: []});
 const matrixAddColumn = () => matrixNewColumn.value = true;
-const matrixHiddenChilds = (val) => matrix.value[val.row].childHidden = !matrix.value[val.row].childHidden;
+const matrixHiddenChild = (val) => matrix.value[val.row].childHidden = !matrix.value[val.row].childHidden;
 
 const matrixEditCell = (val) => {
 	if(val.child >= 0) matrix.value[val.row].child[val.child].cells[val.cell] = val.data;
@@ -59,7 +80,7 @@ const matrixEditingCell = (val) => {
         @matrixEditCell="matrixEditCell"
         @matrixEditingCell="matrixEditingCell"
         @matrixAddChild="matrixAddChild"
-        @matrixHiddenChilds="matrixHiddenChilds"
+        @matrixHiddenChild="matrixHiddenChild"
       />
 
       <TableFooter

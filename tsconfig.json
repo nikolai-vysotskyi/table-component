@@ -1,5 +1,4 @@
 {
   // https://v3.nuxtjs.org/concepts/typescript
-//  "include": ["components", "svg.config.d.ts"],
   "extends": "./.nuxt/tsconfig.json",
 }

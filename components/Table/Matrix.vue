@@ -2,16 +2,29 @@
 import PlusIcon from "~/assets/svg/plus.svg";
 import ArrowIcon from "~/assets/svg/arrow.svg";
 
-
 interface Props {
-  matrix: Array<object>,
-  headers: Array<object>,
+  matrix: Array<{
+    cells: Array<{
+      value: string,
+      editing: boolean,
+    }>,
+    child: Array<{
+      cells: Array<{
+        value: string,
+        editing: boolean,
+      }>
+    }>,
+    childHidden: boolean,
+  }>,
+  headers: Array<{
+    type: string,
+  }>,
   matrixNewColumn: boolean,
 }
 
 defineProps<Props>();
 
-const emit = defineEmits(["matrixEditCell", "matrixAddChild", "matrixHiddenChilds", "matrixEditingCell"]);
+const emit = defineEmits(["matrixEditCell", "matrixAddChild", "matrixHiddenChild", "matrixEditingCell"]);
 
 const cellEdit = (item) => emit("matrixEditCell", item);
 const cellEditing = (cell: number, row: number, data: boolean, child?: number) => emit("matrixEditingCell", {
@@ -21,7 +34,7 @@ const cellEditing = (cell: number, row: number, data: boolean, child?: number) =
 	child
 });
 const childAdd = (row: number) => emit("matrixAddChild", {row});
-const childHidden = (row: number) => emit("matrixHiddenChilds", {row});
+const childHidden = (row: number) => emit("matrixHiddenChild", {row});
 </script>
 
 <template>

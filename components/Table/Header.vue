@@ -1,6 +1,8 @@
 <script setup lang="ts">
 interface Props {
-  headers: Array<object>,
+  headers: Array<{
+    data: string,
+  }>,
   matrixNewColumn: boolean,
 }
 defineProps<Props>();
@@ -34,7 +36,7 @@ const saveHeader = (e) => {
       <select v-model="dataType.value">
         <option
           v-for="type in dataTypes"
-          :key="'header_'+type"
+          :key="type"
         >
           {{ type }}
         </option>

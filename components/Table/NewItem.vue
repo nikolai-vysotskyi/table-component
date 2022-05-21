@@ -17,7 +17,7 @@ interface MatrixItem {
 const emit = defineEmits(["matrixEditCell"]);
 const props = defineProps<Props>();
 
-const newMatrixItem = ref(props.value);
+const newMatrixItem = ref<string>(props.value);
 
 const itemEdit = (e, row: number, cell: number, child: number) => {
 	let item :MatrixItem = {

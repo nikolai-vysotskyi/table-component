@@ -3,7 +3,9 @@ import {min,max,count} from "~/functions/aggrigation";
 
 interface Props {
   matrix: Array<object>,
-  headers: Array<object>,
+  headers: Array<{
+    type: string,
+  }>,
   matrixNewColumn: boolean,
 }
 defineProps<Props>();
@@ -26,7 +28,7 @@ const dataTypes = ["Max", "Min", "Count"];
         <select v-model="dataType.value[index]">
           <option
             v-for="type in dataTypes"
-            :key="'footer_'+type"
+            :key="type"
           >
             {{ type }}
           </option>
