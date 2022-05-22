@@ -1,0 +1,17 @@
+{
+  "headers": [
+    {
+      "data": "id",
+      "type": "string"
+    }
+  ],
+  "matrix": [
+    {
+      "cells": [
+        {
+          "value": "1"
+        }
+      ]
+    }
+  ]
+}

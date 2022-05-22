@@ -56,7 +56,7 @@ const childHidden = (row: number) => emit("matrixHiddenChild", {row});
           :cell-index="cellIndex"
           :row-index="rowIndex"
           :value-type="cell.type"
-          @matrixEditCell="cellEdit"
+          @matrix-edit-cell="cellEdit"
         />
       </div>
       <div
@@ -108,7 +108,7 @@ const childHidden = (row: number) => emit("matrixHiddenChild", {row});
             :value="child.cells[cellIndex]?.value"
             :type="cell.type"
             :child-index="childIndex"
-            @matrixEditCell="cellEdit"
+            @matrix-edit-cell="cellEdit"
           />
         </div>
         <div
@@ -120,6 +120,6 @@ const childHidden = (row: number) => emit("matrixHiddenChild", {row});
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "/assets/scss/components/Matrix";
 </style>

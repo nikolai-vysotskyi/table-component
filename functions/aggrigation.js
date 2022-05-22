@@ -7,7 +7,7 @@ export const max = (arr, index) => {
 		parseInt(arr?.[0]?.cells?.[index]?.value) || -Infinity
 	) || "";
 
-	if(value === -Infinity) return "";
+	if (value === -Infinity) return "";
 	return value;
 };
 
@@ -20,7 +20,7 @@ export const min = (arr, index) => {
 		parseInt(arr?.[0]?.cells?.[index]?.value) || Infinity
 	) || "";
 
-	if(value === Infinity) return "";
+	if (value === Infinity) return "";
 	return value;
 };
 
@@ -35,8 +35,8 @@ export const count = (arr, index) => {
 const dataTypes = [
 	{
 		type: "Value",
-		func: function (row, cellIndex){
-			if(row.cells[cellIndex] && !row.cells?.[cellIndex]?.editing) {
+		func: function (row, cellIndex) {
+			if (row.cells[cellIndex] && !row.cells?.[cellIndex]?.editing) {
 				return row.cells?.[cellIndex]?.value;
 			}
 		}
@@ -63,7 +63,7 @@ const dataTypes = [
 
 
 const updateValue = (type, data, rowIndex, cellIndex, itemEdit) => {
-	if(type ===  "Max" || type ===  "Min" || type ===  "Count") {
+	if (type === "Max" || type === "Min" || type === "Count") {
 		let item = {
 			data: {
 				value: data.toString(),
@@ -81,21 +81,20 @@ export const value = (row, type, cellType, rowIndex, cellIndex, itemEdit) => {
 	let data;
 
 	dataTypes.forEach((dataType) => {
-		if(dataType.type === type){
+		if (dataType.type === type) {
 			data = dataType.func(row, cellIndex);
 		}
 	});
 
-	if(
-		(data &&
+	if ((data &&
 			(!row.cells[cellIndex]?.value
 				|| data.toString() !== row.cells[cellIndex]?.value.toString()
 			)
-		)
-		|| cellType === "String"
-	){
+	) || cellType === "String")
+	{
 		updateValue(type, data, rowIndex, cellIndex, itemEdit);
 	}
+
 	return data || row.cells[cellIndex]?.value;
 };
 

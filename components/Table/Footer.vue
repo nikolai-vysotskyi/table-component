@@ -17,12 +17,12 @@ const dataTypes = ["Max", "Min", "Count"];
 <template>
   <div class="footer">
     <div
-      v-for="(header,index) in headers"
+      v-for="(header, index) in headers"
       :key="index"
       class="footer_item"
     >
       <div
-        v-if="headers[index].type === 'Number'"
+        v-if="header.type === 'Number'"
         class="footer_item-value"
       >
         <select v-model="dataType.value[index]">
@@ -54,6 +54,6 @@ const dataTypes = ["Max", "Min", "Count"];
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "/assets/scss/components/Footer";
 </style>

@@ -32,10 +32,10 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
       class="value_select"
     >
       <option
-        v-for="type in dataTypes"
-        :key="type"
+        v-for="item in dataTypes"
+        :key="item"
       >
-        {{ type }}
+        {{ item }}
       </option>
     </select>
 
@@ -50,7 +50,7 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
       :value="row.cells[cellIndex]?.value"
       :type="valueType"
       :child-index="NaN"
-      @matrixEditCell="itemEdit"
+      @matrix-edit-cell="itemEdit"
     />
     <div
       v-else
@@ -61,6 +61,6 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "/assets/scss/components/Value";
 </style>

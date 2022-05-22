@@ -43,6 +43,8 @@ const matrixAddRow = () => {
 	});
 };
 
+const getter;
+
 const matrixAddChild = (val) => matrix.value[val.row].child.push({cells: []});
 const matrixAddColumn = () => matrixNewColumn.value = true;
 const matrixHiddenChild = (val) => matrix.value[val.row].childHidden = !matrix.value[val.row].childHidden;
@@ -62,14 +64,14 @@ const matrixEditingCell = (val) => {
   <div class="table">
     <TableController
       :header-length="headers.length"
-      @matrixAddRow="matrixAddRow"
-      @matrixAddColumn="matrixAddColumn"
+      @matrix-add-row="matrixAddRow"
+      @matrix-add-column="matrixAddColumn"
     />
     <div class="table_content">
       <TableHeader
         :headers="headers"
         :matrix-new-column="matrixNewColumn"
-        @headerAddItem="headerAddItem"
+        @header-add-item="headerAddItem"
       />
 
       <TableMatrix
@@ -77,10 +79,10 @@ const matrixEditingCell = (val) => {
         :matrix="matrix"
         :headers="headers"
         :matrix-new-column="matrixNewColumn"
-        @matrixEditCell="matrixEditCell"
-        @matrixEditingCell="matrixEditingCell"
-        @matrixAddChild="matrixAddChild"
-        @matrixHiddenChild="matrixHiddenChild"
+        @matrix-edit-cell="matrixEditCell"
+        @matrix-editing-cell="matrixEditingCell"
+        @matrix-add-child="matrixAddChild"
+        @matrix-hidden-child="matrixHiddenChild"
       />
 
       <TableFooter
@@ -93,6 +95,6 @@ const matrixEditingCell = (val) => {
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
   @import "/assets/scss/components";
 </style>
