@@ -8,7 +8,7 @@
       "plugin:@typescript-eslint/recommended",
       "plugin:vue/vue3-recommended"
     ],
-//    "parser": "@typescript-eslint/parser",
+//  "parser": "@typescript-eslint/parser",
     "parser": "vue-eslint-parser",
     "parserOptions": {
       "parser": "@typescript-eslint/parser",
@@ -17,6 +17,7 @@
     "rules": {
         "vue/script-setup-no-uses-vars": "off",
         "vue/multi-word-component-names": 0,
+        "@typescript-eslint/no-empty-interface": 0,
         "indent": [
             "error",
             "tab"

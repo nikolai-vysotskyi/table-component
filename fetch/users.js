@@ -3,15 +3,15 @@ import onAxiosForbidden from "~/utils/onAxiosForbidden.js";
 
 const users = async function () {
 	try {
-		const r = await axios.request(
+		const response = await axios.request(
 			{
 				method: "get",
-				url: "test.com/api/users/"
+				url: "https://my-json-server.typicode.com/nikolai-vysotskyi/table-component/db"
 			}
 		);
-		return await r;
+		return (response || {}).data || {}; 
 	} catch (err) {
-		// return await onAxiosForbidden(err, async () => await users());
+		return await onAxiosForbidden(err, async () => await users());
 	}
 };
 

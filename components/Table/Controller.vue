@@ -2,6 +2,7 @@
 interface Props {
   headerLength: number,
 }
+
 defineProps<Props>();
 
 const emit = defineEmits(["matrixAddRow", "matrixAddColumn"]);

@@ -18,6 +18,7 @@ interface Props {
     type: string,
   }>,
 }
+
 const prop = defineProps<Props>();
 
 const headers = reactive(prop.headers || []);
@@ -28,6 +29,7 @@ const matrix = ref(prop.matrix || [
 		childHidden: false,
 	}
 ]);
+
 const matrixNewColumn = ref<boolean>(false);
 
 const headerAddItem = (val) => {
@@ -42,8 +44,6 @@ const matrixAddRow = () => {
 		childHidden: false,
 	});
 };
-
-const getter;
 
 const matrixAddChild = (val) => matrix.value[val.row].child.push({cells: []});
 const matrixAddColumn = () => matrixNewColumn.value = true;
