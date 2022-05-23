@@ -52,7 +52,6 @@ const childHidden = (row: number) => emit("matrixHiddenChild", {row});
         @dblclick="cellEditing(cellIndex, rowIndex, true)"
       >
         <TableValue
-          :type="headers[cellIndex].type"
           :row="row"
           :cell-index="cellIndex"
           :row-index="rowIndex"

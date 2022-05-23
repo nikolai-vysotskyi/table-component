@@ -6,7 +6,6 @@ export const max = (arr, index) => {
 				: max,
 		parseInt(arr?.[0]?.cells?.[index]?.value) || -Infinity
 	) || "";
-
 	if (value === -Infinity) return "";
 	return value;
 };
@@ -87,12 +86,8 @@ export const value = (row, type, cellType, rowIndex, cellIndex, itemEdit) => {
 		}
 	});
 
-	if ((data &&
-			(!row.cells[cellIndex]?.value
-				|| data.toString() !== row.cells[cellIndex]?.value.toString()
-			)
-	) || cellType === "String")
-	{
+	if ((data && (!row.cells[cellIndex]?.value || data.toString() !== row.cells[cellIndex]?.value.toString()))
+		|| cellType === "String") {
 		updateValue(type, data, rowIndex, cellIndex, itemEdit);
 	}
 

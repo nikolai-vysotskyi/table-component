@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import {value} from "~/functions/aggrigation";
+import {reactive} from "vue";
+
 interface Props {
   row: {
     cells: Array<{
@@ -10,7 +12,6 @@ interface Props {
   },
   cellIndex: number,
   rowIndex: number,
-  type: string,
   valueType: string,
 }
 const prop = defineProps<Props>();
@@ -29,9 +30,10 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
 </script>
 
 <template>
+  {{ valueType }}
   <div class="value">
     <select
-      v-if="type === 'Number'"
+      v-if="valueType === 'Number'"
       v-model="dataType.value[cellIndex]"
       class="value_select"
     >
@@ -47,7 +49,7 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
       v-if="
         (!row.cells[cellIndex]
           || row.cells?.[cellIndex]?.editing)
-          && (type === 'String' || dataType.value[cellIndex] === 'Value')
+          && (valueType === 'String' || dataType?.value?.[cellIndex] === 'Value')
       "
       :row-index="rowIndex"
       :cell-index="cellIndex"
@@ -60,7 +62,7 @@ const dataTypes = ["Value", "Max", "Min", "Count"];
       v-else
       class="value_value"
     >
-      {{ value(row, dataType.value[cellIndex], type, rowIndex, cellIndex, itemEdit) }}
+      {{ value(row, dataType.value[cellIndex], valueType, rowIndex, cellIndex, itemEdit) }}
     </div>
   </div>
 </template>

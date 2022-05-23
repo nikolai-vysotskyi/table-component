@@ -14,15 +14,10 @@ const newColumn = () => emit("matrixAddColumn");
 <template>
   <div class="controller">
     <button
-      class="controller_item"
+      class="controller_item controller_column"
       @click="newColumn"
     >
-      <span v-if="headerLength > 0">
-        Add column
-      </span>
-      <span v-else>
-        Create table
-      </span>
+      {{ headerLength > 0? 'Add column' : ' Create table' }}
     </button>
 
     <div class="controller_item">

@@ -17,11 +17,13 @@ let matrix = ref([]);
 </script>
 
 <template>
-  <Table
-    v-if="matrix.length && matrix.length"
-    :headers="headers"
-    :matrix="matrix"
-  />
-  <Table />
+  <section>
+    <Table
+      v-if="matrix.length && matrix.length"
+      :headers="headers"
+      :matrix="matrix"
+    />
+    <Table />
+  </section>
 </template>
 
