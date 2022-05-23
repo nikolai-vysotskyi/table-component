@@ -4,6 +4,7 @@ interface Props {
     cells: Array<{
       value: string,
       editing: boolean,
+      type: string,
     }>,
     child: Array<{
       cells: Array<{

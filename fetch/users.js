@@ -9,7 +9,7 @@ const users = async function () {
 				url: "https://my-json-server.typicode.com/nikolai-vysotskyi/table-component/db"
 			}
 		);
-		return (response || {}).data || {}; 
+		return (response || {}).data || {};
 	} catch (err) {
 		return await onAxiosForbidden(err, async () => await users());
 	}

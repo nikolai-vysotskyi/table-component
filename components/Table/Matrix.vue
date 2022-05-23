@@ -12,6 +12,7 @@ interface Props {
       cells: Array<{
         value: string,
         editing: boolean,
+        type: string,
       }>
     }>,
     childHidden: boolean,

@@ -5,23 +5,27 @@ interface Props {
     cells: Array<{
       value: string,
       editing: boolean,
+      type: string,
     }>,
-
   },
   cellIndex: number,
   rowIndex: number,
   type: string,
   valueType: string,
 }
-defineProps<Props>();
+const prop = defineProps<Props>();
 
 const emit = defineEmits(["matrixEditCell"]);
 
 const itemEdit = (item) => emit("matrixEditCell", item);
 
 const dataType = reactive({value: []});
-const dataTypes = ["Value", "Max", "Min", "Count"];
 
+prop.row.cells.forEach((item)=> {
+	dataType.value.push(item.type || "Value");
+});
+
+const dataTypes = ["Value", "Max", "Min", "Count"];
 </script>
 
 <template>

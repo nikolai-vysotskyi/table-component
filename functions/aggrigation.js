@@ -68,6 +68,7 @@ const updateValue = (type, data, rowIndex, cellIndex, itemEdit) => {
 			data: {
 				value: data.toString(),
 				editing: false,
+				type: type,
 			},
 			row: rowIndex,
 			cell: cellIndex,
